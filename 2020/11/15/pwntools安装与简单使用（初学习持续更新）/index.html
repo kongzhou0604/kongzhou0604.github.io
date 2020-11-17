@@ -23,7 +23,7 @@
 <meta property="og:description" content="小白一枚，初学轻喷 0x01.pwntools简介pwntools 是一款专门用于CTF Exploit的python库，能够很方便的进行本地与远程利用的切换，基本涵盖了pwn题利用脚本所需要的各种工具。 0x02.pwntools安装在Ubuntu中安装，这个是python2的，python3不能pip安装，还要安装其他东西，在这里就不详述了 1sudo pip install pwntools">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-11-14T16:08:04.453Z">
-<meta property="article:modified_time" content="2020-11-15T08:49:42.474Z">
+<meta property="article:modified_time" content="2020-11-17T02:45:14.093Z">
 <meta property="article:author" content="kongzhou">
 <meta name="twitter:card" content="summary">
 
@@ -247,7 +247,55 @@ ga('send', 'pageview');
 <h3 id="0x01-pwntools简介"><a href="#0x01-pwntools简介" class="headerlink" title="0x01.pwntools简介"></a>0x01.pwntools简介</h3><p>pwntools 是一款专门用于CTF Exploit的python库，能够很方便的进行本地与远程利用的切换，基本涵盖了pwn题利用脚本所需要的各种工具。</p>
 <h3 id="0x02-pwntools安装"><a href="#0x02-pwntools安装" class="headerlink" title="0x02.pwntools安装"></a>0x02.pwntools安装</h3><p>在Ubuntu中安装，这个是python2的，python3不能pip安装，还要安装其他东西，在这里就不详述了</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install pwntools</span><br></pre></td></tr></table></figure>
-<h3 id="0x03-pwntools的常用模块"><a href="#0x03-pwntools的常用模块" class="headerlink" title="0x03.pwntools的常用模块"></a>0x03.pwntools的常用模块</h3><p>Pwnlib.asm :通过capstone进行汇编与反汇编，支持x86/x64/arm/mips/powerpc等基本上所有的主流平台<br>Pwnlib.dynelf : 用于远程符号泄漏，通过leak数据来自动化定位程序中函数位置(极其实用)<br>Pwnlib.elf : 对elf文件进行读写(实用方便)<br>Pwnlib.gdb : 配合gdb进行调试<br>Pwnlib.memleak : 用于内存泄漏，可拼接多次泄露出来的内存<br>Pwnlib.shellcraft : shellcode的生成器<br>Pwnlib.tubes : 包括tubes.sock, tubes.process, Pwnlib.tubes.ssh, tubes.serialtube，分别适用于不同场景的PIPE<br>Pwnlib.utils : 一些实用的小功能，例如CRC计算，cyclic pattern等<br>Pwnlib.rop<br>rop生成工具，可以直接生成32位rop</p>
+<h3 id="0x03-pwntools的常用模块"><a href="#0x03-pwntools的常用模块" class="headerlink" title="0x03.pwntools的常用模块"></a>0x03.pwntools的常用模块</h3><table border="1">
+<tr>
+  <td>Pwnlib.asm</td>
+  <td>通过capstone进行汇编与反汇编，支持x86/x64/arm/mips/powerpc等基本上所有的主流平台</td>
+</tr>
+<tr>
+  <td>Pwnlib.dynelf</td>
+  <td>用于远程符号泄漏，通过leak数据来自动化定位程序中函数位置(极其实用)</td>
+</tr>
+<tr>
+  <td>Pwnlib.elf</td>
+  <td>对elf文件进行读写(实用方便)</td>
+</tr>
+<tr>
+  <td>Pwnlib.gdb</td>
+  <td>配合gdb进行调试</td>
+</tr>
+<tr>
+  <td>Pwnlib.memleak</td>
+  <td>用于内存泄漏，可拼接多次泄露出来的内存</td>
+</tr>
+<tr>
+  <td>Pwnlib.shellcraft</td>
+  <td>shellcode的生成器</td>
+</tr>
+<tr>
+  <td>Pwnlib.tubes</td>
+  <td>包括tubes.sock, tubes.process, Pwnlib.tubes.ssh, tubes.serialtube，分别适用于不同场景的PIPE</td>
+</tr>
+\<tr>
+  <td>Pwnlib.utils</td>
+  <td>一些实用的小功能，例如CRC计算，cyclic pattern等</td>
+</tr>
+<tr>
+  <td>Pwnlib.rop</td>
+  <td>rop生成工具，可以直接生成32位rop</td>
+</tr>
+<tr>
+  <td> </td>
+  <td> </td>
+</tr>
+</table>
+
+
+
+
+
+
+
 <h3 id="0x04pwntools的简单使用"><a href="#0x04pwntools的简单使用" class="headerlink" title="0x04pwntools的简单使用"></a>0x04pwntools的简单使用</h3><h4 id="用于导入pwntools模块"><a href="#用于导入pwntools模块" class="headerlink" title="用于导入pwntools模块"></a>用于导入pwntools模块</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br></pre></td></tr></table></figure>
 <h4 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">本地:p = porcess(<span class="string">&quot;./文件名&quot;</span>)</span><br><span class="line">远程:p = remote(<span class="string">&quot;地址&quot;</span>,端口)</span><br><span class="line">关闭连接:close()  </span><br><span class="line"><span class="comment"># p是看个人的</span></span><br></pre></td></tr></table></figure>
 
