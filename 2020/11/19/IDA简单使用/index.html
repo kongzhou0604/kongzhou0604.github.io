@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>IDA简单使用 | Hexo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="forsigner,前端,设计,Hexo主题,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="0x00 前言写这个是因为看了学长发的PPT，发现自己对IDA的许多功能并不是那么的熟悉，所以就把PPT上边的内容手打下来，加深印象，方便查看 0x01 IDA Pro简介•交互式反汇编器专业版（Interactive Disassembler Professional），人们常称其为IDA Pro，或简称为IDA。是目前最棒的一个静态反编译软件，为众多0day世界的成员和ShellCode安全分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IDA简单使用">
+<meta property="og:url" content="https://kongzhou.net/2020/11/19/IDA%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="0x00 前言写这个是因为看了学长发的PPT，发现自己对IDA的许多功能并不是那么的熟悉，所以就把PPT上边的内容手打下来，加深印象，方便查看 0x01 IDA Pro简介•交互式反汇编器专业版（Interactive Disassembler Professional），人们常称其为IDA Pro，或简称为IDA。是目前最棒的一个静态反编译软件，为众多0day世界的成员和ShellCode安全分">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201119151946532.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201119154432494.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201119155341700.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201119173454910.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201119190428249.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201119191150114.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201119193113163.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201119193641756.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201119202614240.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201119203058740.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201119203316696.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201119205020314.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201119205120820.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201119205931887.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020111921035547.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201119210812369.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201119211056636.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-11-19T13:21:15.583Z">
+<meta property="article:modified_time" content="2020-11-19T13:26:17.219Z">
+<meta property="article:author" content="kongzhou">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201119151946532.png#pic_center">
+
+  
+
+  
+    <link rel="icon" href="/images/fish.jpg">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/personal-style.css">
+
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x00-%E5%89%8D%E8%A8%80"><span class="toc-text">0x00 前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-IDA-Pro%E7%AE%80%E4%BB%8B"><span class="toc-text">0x01 IDA Pro简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-IDA%E5%90%AF%E5%8A%A8"><span class="toc-text">0x02 IDA启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-%E5%8A%A0%E8%BD%BD%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="toc-text">0x03 加载可执行文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x04-IDA%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%E7%95%8C%E9%9D%A2"><span class="toc-text">0x04 IDA主要功能界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x05-IDA%E5%88%86%E6%9E%90%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="toc-text">0x05 IDA分析可执行文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x06-IDA%E5%8A%9F%E8%83%BD%E7%95%8C%E9%9D%A2%E4%BB%8B%E7%BB%8D"><span class="toc-text">0x06 IDA功能界面介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x07-%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">0x07 常用快捷键</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-IDA简单使用" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">IDA简单使用</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2020.11.19</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>kongzhou</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B/">学习历程</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h3><p>写这个是因为看了学长发的PPT，发现自己对IDA的许多功能并不是那么的熟悉，所以就把PPT上边的内容手打下来，加深印象，方便查看</p>
+<h3 id="0x01-IDA-Pro简介"><a href="#0x01-IDA-Pro简介" class="headerlink" title="0x01 IDA Pro简介"></a>0x01 IDA Pro简介</h3><p>•交互式反汇编器专业版（Interactive Disassembler Professional），人们常称其为IDA Pro，或简称为IDA。是目前最棒的一个静态反编译软件，为众多0day世界的成员和ShellCode安全分析人士不可缺少的利器！</p>
+<p>•IDA Pro是一款交互式的，可编程的，可扩展的，多处理器的，交叉Windows或Linux WinCE MacOS平台主机来分析程序， 被公认为最好的花钱可以买到的逆向工程利器。IDA Pro已经成为事实上的分析敌意代码的标准并让其自身迅速成为攻击研究领域的重要工具。它支持数十种CPU指令集其中包括Intel x86，x64，MIPS，PowerPC，ARM，Z80，68000，c8051等等。</p>
+<p>上面是百度对IDA的简介</p>
+<h3 id="0x02-IDA启动"><a href="#0x02-IDA启动" class="headerlink" title="0x02 IDA启动"></a>0x02 IDA启动</h3><p>• IDA负责反编译32位可执行文件，IDA64负责编译64位可执行文件<br>• 注意，分析文件时，必须把对应的文件放到对应的IDA中分析，否则会出现不能反编译的情况<br><img src="https://img-blog.csdnimg.cn/20201119151946532.png#pic_center" alt="在这里插入图片描述"><br>• IDA打开后如上图所示<br>• 其中<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•”New”选项表明反编译新的可执行文件<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•”Go”选项表明直接进入主页面<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•”Previous”选项表明加载已反编译的文件选项</p>
+<h3 id="0x03-加载可执行文件"><a href="#0x03-加载可执行文件" class="headerlink" title="0x03 加载可执行文件"></a>0x03 加载可执行文件</h3><p><img src="https://img-blog.csdnimg.cn/20201119154432494.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>• 上图界面可识别当前加载的可执行文件类型，这里已识别出文件为EXE可执行文件格式<br>• 下面”Processor type”选项表明当前处理器类型，IDA能够识别的文件类型可依照IDA默认选项加载可执行文件，如果是IDA不能识别的二进制代码，例如ShellCode代码，可选择”Binary file”方式加载<br><img src="https://img-blog.csdnimg.cn/20201119155341700.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>• 一旦选择”Binary file”方式加载文件，则需要用户手动填入加载段地址和相对偏移，对应上图”Loading segment”和”Loading offset”选项。该种方式主要应用场景为：分析动态保存的二进制代码、ShellCode二进制代码分析等。<br>•  选择”Binary file”方式加载文件，IDA不会自动分析代码，用户需根据具体需求自行反汇编二进制代码</p>
+<h3 id="0x04-IDA主要功能界面"><a href="#0x04-IDA主要功能界面" class="headerlink" title="0x04 IDA主要功能界面"></a>0x04 IDA主要功能界面<img src="https://img-blog.csdnimg.cn/20201119173454910.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></h3><h3 id="0x05-IDA分析可执行文件"><a href="#0x05-IDA分析可执行文件" class="headerlink" title="0x05 IDA分析可执行文件"></a>0x05 IDA分析可执行文件</h3><p>• IDA会对可识别的文件进行代码反编译，反编译过程一句文件大小而定，例如：几百KB大小的文件，IDA可短时间分析完毕；几M或更大的文件，IDA则自动分析一段时间，越大的文件IDA分析的时间通常会越长(因为可执行文件越大，意味着可执行文件中代码段越大，IDA分析时间自然会更长)。<br>• 判断IDA分析完毕的方法有：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•下图IDA的”Output Window”窗口输出”The initial autoanalysis has been finished”日志时，则说明IDA已分析完毕，对应Log如下图所示<br><img src="https://img-blog.csdnimg.cn/20201119190428249.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•上图中IDA界面左下角AU处于”idie”状态时，也表明IDA分析完毕<br>• 通过以上方式可观察到IDA是否分析完毕。IDA分析完毕之后会将光标停留在需分析的可执行文件入口函数处。如下图分析程序，程序分析完毕之后，IDA把当前光标停留在下图main函数中。<br><img src="https://img-blog.csdnimg.cn/20201119191150114.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="0x06-IDA功能界面介绍"><a href="#0x06-IDA功能界面介绍" class="headerlink" title="0x06 IDA功能界面介绍"></a>0x06 IDA功能界面介绍</h3><p>•  经过IDA的加载和分析过程，用户便可根据需求自行逆向分析。进行逆向分析之前需了解IDA界面有哪些功能，包括：导航条、反汇编窗口、其他辅助分析窗口。<br><img src="https://img-blog.csdnimg.cn/20201119193113163.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>• 导航栏<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• IDA主界面中存在一项颜色各异的导航条，导航条如下图<br><img src="https://img-blog.csdnimg.cn/20201119193641756.png#pic_center" alt="在这里插入图片描述"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 蓝色：表示常规的指令函数，绝大部分为用户编写的代码<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 黑色：表示间隙部分内容，可执行文件中包含多个节段<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 银白色：表示数据项部分内容，可执行文件中会包含大量数据<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 粉色：表示外部导入函数，通常可执行文件会导入外部的库函数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 暗黄色：表示IDA未识别的内容，需要用户根据需求自行分析<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 有个青色，我搜的是库函数</p>
+<p>• 反汇编窗口(IDA View-A)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 反汇编窗口属于逆向分析过程中关注频率最高的窗口，通过此窗口可以逆向分析反汇编代码。对应下图<br><img src="https://img-blog.csdnimg.cn/20201119202614240.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>• 反汇编窗口可分为两种模式，分别为：默认模式和流程模式。（空格键转换）<br>• 默认模式<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 反汇编窗口默认模式属于使用频率很高的常规模式，对应界面如下图所示：<br><img src="https://img-blog.csdnimg.cn/20201119203058740.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>•  图形模式<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 反汇编窗口默认模式中按下键盘的”空格键”便转入图形模式，图形模式界面如下图所示：<br><img src="https://img-blog.csdnimg.cn/20201119203316696.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>• 其他辅助分析窗口<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 除了提供反汇编分析窗口，IDA默认界面提供<strong>二进制查看编辑窗口、函数窗口、结构窗口、枚举类型窗口、导入函数窗口、导出函数窗口</strong>。不同窗口在分析节段起到不同作用。下面介绍其他辅助分析窗口功能的应用场景。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 二进制窗口（Hex View-1）可支持用户查看可执行文件对应相对偏移的二进制机器码数据。如下图所示：</p>
+<p><img src="https://img-blog.csdnimg.cn/20201119205020314.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 二进制窗口总共为三部分，三部分内容分别位于下图左、中、右，三种含义分别为：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 左边数据：表示二进制数据对应的内存相对偏移<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 中间数据：表示内存中数据的具体内容<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 右边数据：表示内存数据的字符串显示，该功能可辅助读者快速识别字符串内容<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 用户可在二进制查看窗口编辑二进制数据，从而满足篡改数据的测试需求<br><img src="https://img-blog.csdnimg.cn/20201119205120820.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>• 函数窗口<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• IDA提供函数窗口供用户查找函数信息，该窗口界面如图：<br><img src="https://img-blog.csdnimg.cn/20201119205931887.png#pic_center" alt="在这里插入图片描述"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 在窗口按下”CTRL + F”快捷键便可根据需求搜索函数名，快速定位函数名方式可提高逆向分析效率</p>
+<p>• 结构窗口（Structures）<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 结构窗口提供用户查询已定义的结构体，同时IDA可识别出可执行文件包含的部分结构体数据，结构窗口如下所示：<br><img src="https://img-blog.csdnimg.cn/2020111921035547.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• 结构窗口可通过快捷键”+”、”-“展开和收缩结构体，IDA结构窗口支持用户自定义结构体</p>
+<p> • 导入函数窗口（Imports）<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• IDA提供导入函数窗口，用于可在导入函数窗口中查看当前可执行文件导入哪些外部函数库及函数，导入函数窗口如下图所示：<br> <img src="https://img-blog.csdnimg.cn/20201119210812369.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>• 导出函数窗口（Exports）<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• IDA的导出函数窗口提供可执行文件导出函数信息，对应的带出函数窗口如下图所示：<br> <img src="https://img-blog.csdnimg.cn/20201119211056636.png?x-oss-process=image,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc1OTY2OA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="0x07-常用快捷键"><a href="#0x07-常用快捷键" class="headerlink" title="0x07 常用快捷键"></a>0x07 常用快捷键</h3><table border="1">
+<tr>
+  <td>按键</td>
+  <td>用处</td>
+</tr>
+<tr>
+  <td>F5</td>
+  <td>将汇编转换成伪代码 </td>
+</tr>
+<tr>
+  <td>Shift + F12 </td>
+  <td>查看字符串 </td>
+</tr>
+<tr>
+  <td>X </td>
+  <td>查看交叉引用 </td>
+</tr>
+<tr>
+  <td>Y </td>
+  <td>修改变量类型 </td>
+</tr>
+<tr>
+  <td>H,R,A </td>
+  <td>转换数据类型 </td>
+</tr>
+<tr>
+  <td>C </td>
+  <td>转换为代码 </td>
+</tr>
+<tr>
+  <td>D </td>
+  <td>转换为数据 </td>
+</tr>
+<tr>
+  <td> </td>
+  <td> </td>
+</tr>
+</table>
+
+    
+  </div>
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul>
+        
+          <li class="item">
+            
+              <span>微信扫一扫</span>
+            
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            
+              <span>支付宝扫一扫</span>
+            
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/11/15/%E4%B8%80%E8%88%AC%E6%9C%AF%E8%AF%AD%E8%A7%A3%E9%87%8A%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">Close</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+<!-- Gitalk评论插件通用代码 -->
+<div id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script>
+const gitalk = new Gitalk({
+  clientID: '277317290454635afa73',
+  clientSecret: '78223c859304da5e8d71bfce136d436c6ff95c37',
+  repo: 'blog-comment',
+  owner: 'forsigner',
+  // 在这里设置一下截取前50个字符串, 这是因为 github 对 label 的长度有了要求, 如果超过
+  // 50个字符串则会报错.
+  // id: location.pathname.split('/').pop().substring(0, 49),
+  id: md5(location.pathname),
+  admin: ['forsigner'],
+  // facebook-like distraction free mode
+  distractionFreeMode: false
+})
+gitalk.render('gitalk-container')
+</script>
+<!-- Gitalk代码结束 -->
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
