@@ -21,7 +21,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-12-02T07:03:34.060Z">
-<meta property="article:modified_time" content="2020-12-02T07:04:05.014Z">
+<meta property="article:modified_time" content="2020-12-02T07:09:06.780Z">
 <meta property="article:author" content="kongzhou">
 <meta name="twitter:card" content="summary">
 
@@ -256,7 +256,7 @@ ga('send', 'pageview');
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">d //删除全部断点</span><br><span class="line">d number //删除指点断点</span><br></pre></td></tr></table></figure>
 
 <h2 id="4-继续执行continue"><a href="#4-继续执行continue" class="headerlink" title="4.继续执行continue"></a>4.继续执行continue</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c <span class="comment">//到达断点后继续执行</span></span><br></pre></td></tr></table></figure>
-<h2 id="5-单步执行next"><a href="#5-单步执行next" class="headerlink" title="5.单步执行next"></a>5.单步执行next</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n //单步调试，按enter可重复上一条指令</span><br></pre></td></tr></table></figure>
+<h2 id="5-单步执行next"><a href="#5-单步执行next" class="headerlink" title="5.单步执行next"></a>5.单步执行next</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">n //单步调试，C语言级</span><br><span class="line">ni //针对汇编，汇编级</span><br><span class="line">按enter可重复上一条指令</span><br></pre></td></tr></table></figure>
 <h2 id="6-进入函数step"><a href="#6-进入函数step" class="headerlink" title="6.进入函数step"></a>6.进入函数step</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s //在单步执行时，遇到函数调用，可进入函数</span><br></pre></td></tr></table></figure>
 <h2 id="7-查看代码list"><a href="#7-查看代码list" class="headerlink" title="7.查看代码list"></a>7.查看代码list</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">l //显示接下来执行的10行代码</span><br></pre></td></tr></table></figure>
 <h2 id="8-查看变量值print"><a href="#8-查看变量值print" class="headerlink" title="8.查看变量值print"></a>8.查看变量值print</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">p a //查看变量值</span><br><span class="line">p main //查看main函数，是地址</span><br><span class="line">p arr //查看数组</span><br><span class="line">p arr[1] //查看数组中第1位</span><br></pre></td></tr></table></figure>
