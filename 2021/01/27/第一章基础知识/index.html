@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>第一章基础知识 | kongzhou&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="forsigner,前端,设计,Hexo主题,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="零碎知识点总结1.1.3 逆向分析技术 通过软件使用说明和操作格式分析软件  静态分析技术 常用工具：IDA  动态分析技术 常用工具：OllyDbg、WinDbg   1.2.1 ASCLL与Unicode字符集 ASCll： 现代的ASCll是一个7位的编码标准，编码的取值范围是00h ~ 7Fh，包括26个大小写字母、10个数字（0 ~ 9）、32个符号、33个控制代码及空格，共128个代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一章基础知识">
+<meta property="og:url" content="https://kongzhou.net/2021/01/27/%E7%AC%AC%E4%B8%80%E7%AB%A0%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="kongzhou&#39;s blog">
+<meta property="og:description" content="零碎知识点总结1.1.3 逆向分析技术 通过软件使用说明和操作格式分析软件  静态分析技术 常用工具：IDA  动态分析技术 常用工具：OllyDbg、WinDbg   1.2.1 ASCLL与Unicode字符集 ASCll： 现代的ASCll是一个7位的编码标准，编码的取值范围是00h ~ 7Fh，包括26个大小写字母、10个数字（0 ~ 9）、32个符号、33个控制代码及空格，共128个代码">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-27T09:25:36.552Z">
+<meta property="article:modified_time" content="2021-01-27T09:26:28.965Z">
+<meta property="article:author" content="kongzhou">
+<meta name="twitter:card" content="summary">
+
+  
+
+  
+    <link rel="icon" href="/images/fish.jpg">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/personal-style.css">
+
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93"><span class="toc-text">零碎知识点总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-3-%E9%80%86%E5%90%91%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF"><span class="toc-text">1.1.3 逆向分析技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-ASCLL%E4%B8%8EUnicode%E5%AD%97%E7%AC%A6%E9%9B%86"><span class="toc-text">1.2.1 ASCLL与Unicode字符集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-2-%E5%AD%97%E7%AC%A6%E5%AD%98%E5%82%A8%E9%A1%BA%E5%BA%8F"><span class="toc-text">1.2.2 字符存储顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-1-API%E5%87%BD%E6%95%B0"><span class="toc-text">1.3.1 API函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-4-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="toc-text">1.3.4 虚拟内存</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-第一章基础知识" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">第一章基础知识</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2021.01.27</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>kongzhou</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/%E3%80%8A%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E3%80%8B/">《加密与解密》</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="零碎知识点总结"><a href="#零碎知识点总结" class="headerlink" title="零碎知识点总结"></a>零碎知识点总结</h2><h3 id="1-1-3-逆向分析技术"><a href="#1-1-3-逆向分析技术" class="headerlink" title="1.1.3 逆向分析技术"></a>1.1.3 逆向分析技术</h3><ol>
+<li><p>通过软件使用说明和操作格式分析软件</p>
+</li>
+<li><p>静态分析技术</p>
+<p>常用工具：IDA</p>
+</li>
+<li><p>动态分析技术</p>
+<p>常用工具：OllyDbg、WinDbg</p>
+</li>
+</ol>
+<h3 id="1-2-1-ASCLL与Unicode字符集"><a href="#1-2-1-ASCLL与Unicode字符集" class="headerlink" title="1.2.1 ASCLL与Unicode字符集"></a>1.2.1 ASCLL与Unicode字符集</h3><ol>
+<li><p>ASCll：</p>
+<p>现代的ASCll是一个7位的编码标准，编码的取值范围是00h ~ 7Fh，包括26个大小写字母、10个数字（0 ~ 9）、32个符号、33个控制代码及空格，共128个代码</p>
+</li>
+<li><p>Unicode：</p>
+<p>Unicode是ASCLL字符编码的一个<strong>扩展</strong>，只不过在Windows中用2字节对其进行编码，因此被称为<strong>宽字符集（Widechars）</strong>。</p>
+<p>Unicode中，所有字符都是16位的，其中所有的7位ASCLL码都被扩充为16位<strong>（注意：高位扩充的是零）</strong></p>
+<p>例：”pediy”的ASCLL码是70h 65h 64h 69h 79h</p>
+<p>Unicode码的十六进制是0070h 0065h 0064h 0069h 0079h</p>
+</li>
+</ol>
+<h3 id="1-2-2-字符存储顺序"><a href="#1-2-2-字符存储顺序" class="headerlink" title="1.2.2 字符存储顺序"></a>1.2.2 字符存储顺序</h3><ul>
+<li>Big-endian：高位字节存入低地址，低位字节存入高地址</li>
+<li>Little-endian：低位字节存入低地址，高位字节存入高地址</li>
+</ul>
+<p>例：将12345678h写入以1000h开始的内存中</p>
+<table>
+<thead>
+<tr>
+<th align="center">存放顺序</th>
+<th>1000h</th>
+<th>1001h</th>
+<th>1002h</th>
+<th>1003h</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Big-endian</td>
+<td>12h</td>
+<td>34h</td>
+<td>56h</td>
+<td>78h</td>
+</tr>
+<tr>
+<td align="center">Little-endian</td>
+<td>78h</td>
+<td>56h</td>
+<td>34h</td>
+<td>12h</td>
+</tr>
+</tbody></table>
+<p>因为网络协议也都是采用Big-endian方式传输数据的，所以有时也把Big-endian方式称为<strong>网络字节序</strong></p>
+<h3 id="1-3-1-API函数"><a href="#1-3-1-API函数" class="headerlink" title="1.3.1 API函数"></a>1.3.1 API函数</h3><p>API的英文全称为”Application Programming Interface”<strong>（应用程序编程接口）</strong></p>
+<p>在早期，Windows的主要部分只需在3个动态链接库中实现，他们分别代表Windows的3个主要子系统，叫做Kernel、User、GDI</p>
+<ul>
+<li>Kernel（由KERNEL32.DLL实现）：操作系统核心功能服务，包括进程与线程控制、内存管理、文件访问等</li>
+<li>User（由USER32.DLL实现）：负责处理用户接口，包括键盘和鼠标输入、窗口和菜单管理等</li>
+<li>GDI（由GDI32.DLL实现）：图形设备接口，允许程序在屏幕和打印机上显示文本和图形</li>
+</ul>
+<p>除上述模块，Windows提供了其他DLL以支持更多的功能，包括对象安全性、注册表操作（ADVAPI32.DLL）、通用控件（COMCTL32.DLL）、公共对话框（COMDLG32.DLL）、用户界面外壳（SHELL32.DLL）和网络（NETAPI32.DLL）</p>
+<h3 id="1-3-4-虚拟内存"><a href="#1-3-4-虚拟内存" class="headerlink" title="1.3.4 虚拟内存"></a>1.3.4 虚拟内存</h3><ul>
+<li>应用程序不会直接访问物理地址</li>
+<li>虚拟内存管理器通过虚拟地址的访问请求来控制所有的物理地址访问</li>
+<li>每个应用程序都有独立的4GB寻址空间，不同应用程序的地址空间是彼此隔离的</li>
+<li>DLL程序没有“私有”空间，他们总是被映射到其他程序的地址空间中，作为其他应用程序的一部分运行。其原因是：如果DLL不与其他程序处于同一个地址空间，应用程序就无法调用它</li>
+</ul>
+
+    
+  </div>
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul>
+        
+          <li class="item">
+            
+              <span>微信扫一扫</span>
+            
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            
+              <span>支付宝扫一扫</span>
+            
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/12/17/docker%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">Close</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+<!-- Gitalk评论插件通用代码 -->
+<div id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script>
+const gitalk = new Gitalk({
+  clientID: '277317290454635afa73',
+  clientSecret: '78223c859304da5e8d71bfce136d436c6ff95c37',
+  repo: 'blog-comment',
+  owner: 'forsigner',
+  // 在这里设置一下截取前50个字符串, 这是因为 github 对 label 的长度有了要求, 如果超过
+  // 50个字符串则会报错.
+  // id: location.pathname.split('/').pop().substring(0, 49),
+  id: md5(location.pathname),
+  admin: ['forsigner'],
+  // facebook-like distraction free mode
+  distractionFreeMode: false
+})
+gitalk.render('gitalk-container')
+</script>
+<!-- Gitalk代码结束 -->
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
