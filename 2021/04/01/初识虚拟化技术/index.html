@@ -22,13 +22,13 @@
 <meta property="og:site_name" content="kongzhou&#39;s blog">
 <meta property="og:description" content="初识虚拟化技术虚拟化技术的分类全虚拟化技术完全虚拟化技术又叫硬件辅助虚拟化技术，最初所使用的虚拟化技术就是全虚拟化技术（Full Virtualization），它在虚拟机（VM）和硬件之间加了一个软件层–Hypervisor，或者叫做虚拟机监视器（VM）。hypervisor可直接与硬件交互  hypervisor 直接运行在物理硬件之上 - KVM  hypervisor 运行在另一个操作系统">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:/Users/34956/AppData/Roaming/Typora/typora-user-images/image-20210401105316383.png">
-<meta property="og:image" content="c:/Users/34956/AppData/Roaming/Typora/typora-user-images/image-20210401110930358.png">
+<meta property="og:image" content="c:/Users/34956/AppData/Roaming/Typora/typora-user-images/image-20210401105316383.png?raw=true">
+<meta property="og:image" content="c:/Users/34956/AppData/Roaming/Typora/typora-user-images/image-20210401110930358.png?raw=true">
 <meta property="article:published_time" content="2021-04-01T02:45:08.381Z">
-<meta property="article:modified_time" content="2021-04-01T03:48:03.985Z">
+<meta property="article:modified_time" content="2021-04-01T03:57:53.191Z">
 <meta property="article:author" content="kongzhou">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/34956/AppData/Roaming/Typora/typora-user-images/image-20210401105316383.png">
+<meta name="twitter:image" content="c:/Users/34956/AppData/Roaming/Typora/typora-user-images/image-20210401105316383.png?raw=true">
 
   
 
@@ -251,11 +251,11 @@ ga('send', 'pageview');
 <li><p>hypervisor 直接运行在物理硬件之上 - KVM</p>
 </li>
 <li><p>hypervisor 运行在另一个操作系统中 - QEMU 和 WINE</p>
-<p><img src="C:\Users\34956\AppData\Roaming\Typora\typora-user-images\image-20210401105316383.png" alt="image-20210401105316383"></p>
+<p><img src="C:\Users\34956\AppData\Roaming\Typora\typora-user-images\image-20210401105316383.png?raw=true" alt="image-20210401105316383"></p>
 </li>
 </ul>
 <h5 id="半虚拟化技术"><a href="#半虚拟化技术" class="headerlink" title="半虚拟化技术"></a>半虚拟化技术</h5><p>半虚拟化技术，也叫做准虚拟化技术。它就是在全虚拟化的基础上，把客户操作系统进行了修改，增加了一个专门的API，这个API可以将客户操作系统发出的指令进行最优化，既不需要hypervisor耗费一定的资源进行翻译工作，因此hypervisor的工作负担变得非常的小，因此整体的性能也有很大的提高。<strong>使用的很少</strong></p>
-<p><img src="C:\Users\34956\AppData\Roaming\Typora\typora-user-images\image-20210401110930358.png" alt="image-20210401110930358"></p>
+<p><img src="C:\Users\34956\AppData\Roaming\Typora\typora-user-images\image-20210401110930358.png?raw=true" alt="image-20210401110930358"></p>
 <h4 id="架构分类"><a href="#架构分类" class="headerlink" title="架构分类"></a>架构分类</h4><h5 id="寄居架构"><a href="#寄居架构" class="headerlink" title="寄居架构"></a>寄居架构</h5><p>就是在操作系统之上安装和运行虚拟化技术，依赖于主机操作系统对设备的支持和物理资源的管理；</p>
 <p>优点：简单，便于实现</p>
 <p>缺点：无用消耗过多，稳定性低，安装和运行应用程序依赖于主机操作系统对设备的支持</p>
